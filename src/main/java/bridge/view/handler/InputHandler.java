@@ -15,6 +15,10 @@ public class InputHandler {
         return receiveValidatedInput(inputView::readBridgeSize);
     }
 
+    public String receiveValidUserMoveInput() {
+        return receiveValidatedInput(inputView::readMoving);
+    }
+
     private <T> T receiveValidatedInput(Supplier<T> inputView) {
         while (true) {
             try {
