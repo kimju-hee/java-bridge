@@ -29,24 +29,24 @@ public class OutputView {
      * <p>
      * 출력을 위해 필요한 메서드의 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
      */
-    public void printMap(int point, List<String> realBridge, boolean isGameOver) {
+    public void printMap(int point, boolean isGameOver, String input) {
         if (point >= 1) {
             up1 += " | ";
             down1 += " | ";
         }
-        if (realBridge.get(point).equals("U") && !isGameOver) {
+        if (!isGameOver && input.equals("U")) {
             up1 += "O";
             down1 += " ";
         }
-        if (realBridge.get(point).equals("D") && !isGameOver) {
+        if (!isGameOver && input.equals("D")) {
             down1 += "O";
             up1 += " ";
         }
-        if (realBridge.get(point).equals("U") && isGameOver) {
+        if (isGameOver && input.equals("U")) {
             up1 += "X";
             down1 += " ";
         }
-        if (realBridge.get(point).equals("D") && isGameOver) {
+        if (isGameOver && input.equals("D")) {
             down1 += "X";
             up1 += " ";
         }
@@ -75,5 +75,19 @@ public class OutputView {
             System.out.println("게임 성공 여부: 성공");
         }
         System.out.println("총 시도한 횟수: " + point);
+    }
+
+    public void askForAnotherGame() {
+        System.out.println();
+        System.out.println("게임을 다시 시도할지 여부를 입력해주세요. (재시도: R, 종료: Q)");
+    }
+
+    public void setUpDown() {
+        up1 = "[ ";
+        up2 = " ]";
+        down1 = "[ ";
+        down2 = " ]";
+        finalUp = "";
+        finalDown = "";
     }
 }

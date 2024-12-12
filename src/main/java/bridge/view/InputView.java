@@ -1,6 +1,7 @@
 package bridge.view;
 
 import bridge.view.validation.BridgeSizeValidator;
+import bridge.view.validation.UserAnswerValidator;
 import bridge.view.validation.UserChoiceValidator;
 import camp.nextstep.edu.missionutils.Console;
 import java.util.Scanner;
@@ -35,6 +36,8 @@ public class InputView {
      * 사용자가 게임을 다시 시도할지 종료할지 여부를 입력받는다.
      */
     public String readGameCommand() {
-        return null;
+        String userAnswer = scanner.next();
+        UserAnswerValidator.validator(userAnswer);
+        return userAnswer;
     }
 }

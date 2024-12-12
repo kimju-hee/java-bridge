@@ -15,6 +15,9 @@ public class BridgeController {
     public static boolean isGameOver = false;
     private int num = 0;
     private int userPosition = 0;
+    private String answer;
+    private boolean stopGame = false;
+    private int gameCount = 0;
 
     OutputView outputView = new OutputView();
     InputView inputView = new InputView();
@@ -26,7 +29,20 @@ public class BridgeController {
     public void start() {
         bridgeInputStart();
         makeBridgeStart();
-        playGame();
+        while (!stopGame) {
+            gameCount ++;
+            isGameOver = false;
+            outputView.setUpDown();
+            playGame();
+            if (!isGameOver) {
+                break;
+            }
+            answer = askForAnotherGame();
+
+            if (answer.equals("Q")) {
+                stopGame = true;
+            }
+        }
         printResult();
     }
 
@@ -46,8 +62,8 @@ public class BridgeController {
     }
 
     public int playGame() {
+        num = 0;
         while (!isGameOver) {
-
             if (num == bridgeSize) {
                 return num;
             }
@@ -61,15 +77,21 @@ public class BridgeController {
     public int checkMoving(String input, int num) {
         if (realBridge.get(num).equals(input)) {
             userPosition = bridgeGame.move();
-            outputView.printMap(num, realBridge, isGameOver);
+            outputView.printMap(num, isGameOver, input);
         }
         if (!realBridge.get(num).equals(input)) {
             isGameOver = true;
-            outputView.printMap(num, realBridge, isGameOver);
+            outputView.printMap(num, isGameOver, input);
         } return userPosition;
     }
 
     public void printResult() {
-        outputView.printResult(isGameOver, num);
+        outputView.printResult(isGameOver, gameCount);
+    }
+
+    public String askForAnotherGame() {
+        outputView.askForAnotherGame();
+        String userAnswer = inputHandler.receiveValidUserAnswerInput();
+        return userAnswer;
     }
 }

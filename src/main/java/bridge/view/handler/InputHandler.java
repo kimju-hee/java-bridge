@@ -19,6 +19,10 @@ public class InputHandler {
         return receiveValidatedInput(inputView::readMoving);
     }
 
+    public String receiveValidUserAnswerInput() {
+        return receiveValidatedInput(inputView::readGameCommand);
+    }
+
     private <T> T receiveValidatedInput(Supplier<T> inputView) {
         while (true) {
             try {
